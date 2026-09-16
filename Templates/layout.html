@@ -10,7 +10,7 @@
             <title>FastAPI Blog</title>
         {% endif %}
         <meta name="description" content="FastAPI Tutorial">
-        <meta name="author" content="Corey Schafer">
+        <meta name="author" content="Meher">
         <!-- Open Graph Tags: The title of the page for social media sharing. It can match the title tag or be more descriptive. -->
         <meta property="og:title" content="FastAPI Blog">
         <!-- Open Graph Tags: Typically set to "website" for static sites or "article" for content-heavy pages. -->
@@ -83,23 +83,6 @@
                         </div>
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav">
-                            <!-- Shown when logged in (hidden by default, shown via JS) -->
-                            <div id="loggedInNav" class="d-none">
-                                <button class="btn btn-outline-light mb-2 mb-md-0 me-md-2"
-                                        type="button"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#createPostModal">New Post</button>
-                                <a class="btn btn-light mb-2 mb-md-0 me-md-3"
-                                   href="{{ url_for("account_page") }}"
-                                   id="accountBtn">Account</a>
-                            </div>
-                            <!-- Shown when logged out -->
-                            <div id="loggedOutNav">
-                                <a class="btn btn-outline-light mb-2 mb-md-0 me-md-2"
-                                   href="{{ url_for("login_page") }}">Login</a>
-                                <a class="btn btn-light mb-2 mb-md-0 me-md-3"
-                                   href="{{ url_for("register_page") }}">Register</a>
-                            </div>
                             <div class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle"
                                    href="#"

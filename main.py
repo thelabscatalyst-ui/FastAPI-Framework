@@ -1,9 +1,11 @@
 from  fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates 
 # from fastapi.responses import HTMLResponse
 
 app = FastAPI()
-# app is the object which   is used to define all the routes
+app.mount("/static", StaticFiles(directory="static"), name="static")
+# app is the object which is used to define all the routes
 
 templates = Jinja2Templates(directory="templates")
 # this is the directory where we will be storing our html files  

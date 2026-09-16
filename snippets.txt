@@ -211,4 +211,56 @@ posts: list[dict] = [
             });
         </script>
 
-Next
+Next{% extends "layout.html" %}
+{% block content %}
+    <div id="postsContainer">
+        {% for post in posts %}
+            <article class="content-section py-3 px-4 mb-4">
+                <div class="d-flex align-items-start gap-4">
+                    <img class="rounded-circle article-img flex-shrink-0"
+                         src="{{ post.author.image_path }}"
+                         alt="{{ post.author.username }}'s profile picture"
+                         width="64"
+                         height="64"
+                         loading="lazy">
+                    <div class="flex-grow-1">
+                        <div class="article-metadata mb-2">
+                            <a class="me-2"
+                               href="{{ url_for("user_posts", user_id=post.author.id) }}">{{ post.author.username }}</a>
+                            <small class="text-body-secondary">{{ post.date_posted.strftime("%B %d, %Y") }}</small>
+                        </div>
+                        <h2>
+                            <a class="article-title"
+                               href="{{ url_for("post_page", post_id=post.id) }}">{{ post.title }}</a>
+                        </h2>
+                        <p class="article-content">{{ post.content }}</p>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+    {% if has_more %}
+        <div class="text-center mb-4">
+            <button type="button" class="btn btn-outline-primary" id="loadMoreBtn">Load More Posts</button>
+        </div>
+    {% endif %}
+{% endblock content %}
+
+
+<!-- Shown when logged in (hidden by default, shown via JS) -->
+                            <div id="loggedInNav" class="d-none">
+                                <button class="btn btn-outline-light mb-2 mb-md-0 me-md-2"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#createPostModal">New Post</button>
+                                <a class="btn btn-light mb-2 mb-md-0 me-md-3"
+                                   href="{{ url_for("account_page") }}"
+                                   id="accountBtn">Account</a>
+                            </div>
+                            <!-- Shown when logged out -->
+                            <div id="loggedOutNav">
+                                <a class="btn btn-outline-light mb-2 mb-md-0 me-md-2"
+                                   href="{{ url_for("login_page") }}">Login</a>
+                                <a class="btn btn-light mb-2 mb-md-0 me-md-3"
+                                   href="{{ url_for("register_page") }}">Register</a>
+                            </div>
