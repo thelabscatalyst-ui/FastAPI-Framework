@@ -1,8 +1,12 @@
-from  fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from  fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates 
+# from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 # app is the object which   is used to define all the routes
+
+templates = Jinja2Templates(directory="templates")
+# this is the directory where we will be storing our html files  
 
 posts: list[dict] = [
     {
@@ -21,9 +25,11 @@ posts: list[dict] = [
     },
 ] #this is basically a sample database that i am using to create a sample page 
 
-@app.get("/", response_class=HTMLResponse)
-def home():
-    return f"<h1> Welcome to {posts[0]['title']} <h1>"
+@app.get("/", include_in_schema=False)
+@app.get("/posts", include_in_schema=False)
+def home(request: Request):
+    return templates.TemplateResponse(request, "home.html", {"posts": posts})
+    # Used the template file name that we are going to use
 # this is basically home route 
 
 @app.get("/posts")
