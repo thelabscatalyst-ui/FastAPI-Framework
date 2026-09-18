@@ -20,7 +20,7 @@
                         </small>
                     </div>
                     <h2>
-                        <a class="article-title" href="#">
+                        <a class="article-title" href="{{ url_for("get_post", id=post.id)}}">
                             {{ post.title }}
                         </a>
                     </h2>

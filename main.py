@@ -1,4 +1,4 @@
-from  fastapi import FastAPI, Request
+from  fastapi import FastAPI, HTTPException, Request, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates 
 # from fastapi.responses import HTMLResponse
@@ -15,6 +15,7 @@ posts: list[dict] = [
         "id": 1,
         "author": "Meher",
         "title": "My life",
+        "image_path": "static/profile_pics/default.jpg",
         "content": "Hi guys, i am using this content for learning the fastapi framework",
         "date": "19th April, 2026" 
     },
@@ -39,3 +40,12 @@ def get_posts():
     return posts  
 # this route will get the posts from the sample database
 # when we are using a SQL database, we will use alchmey to fetch the data form there
+
+@app.get("/posts/{id}") # this would tell that post id is part of the url 
+def get_post(request: Request, id: int):
+    for post in posts:
+        if post["id"] == id:
+            title = post["title"]
+            return templates.TemplateResponse(request, "post.html", {"post": post, "title": title}) 
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail = f"post was not found")
+# this helps us to return the correct https status code 
